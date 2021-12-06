@@ -1,4 +1,4 @@
-use std::fs;
+use crate::solve;
 
 #[derive(Debug)]
 struct Command {
@@ -15,12 +15,10 @@ enum Direction {
 }
 
 pub fn run() {
-    let data = get_data();
-    task_1(&data);
-    task_2(&data);
+    solve!(&2, parse, task_1, task_2);
 }
 
-fn task_1(commands: &Vec<Command>) {
+fn task_1(commands: &Vec<Command>) -> String {
     let (forward, depth) =
         commands.iter().fold((0, 0), |(forward, depth), command| {
             match command.direction {
@@ -30,30 +28,11 @@ fn task_1(commands: &Vec<Command>) {
                 _ => (forward, depth),
             }
         });
-
-    let final_depth: i32 = commands
-        .iter()
-        .map(|command| match &command.direction {
-            Direction::Up => -command.amount,
-            Direction::Down => command.amount,
-            _ => 0,
-        })
-        .sum();
-
-    let old_forward: i32 = commands
-        .iter()
-        .map(|command| match &command.direction {
-            Direction::Forward => command.amount,
-            _ => 0,
-        })
-        .sum();
-
-    println!("depth: {} {}", final_depth, depth);
-    println!("forwards: {} {}", old_forward, forward);
-    println!("answer: {}", final_depth * forward);
+    let answer = forward * depth;
+    answer.to_string()
 }
 
-fn task_2(commands: &Vec<Command>) {
+fn task_2(commands: &Vec<Command>) -> String {
     let mut aim = 0;
     let mut depth = 0;
     let mut forward = 0;
@@ -69,13 +48,12 @@ fn task_2(commands: &Vec<Command>) {
             _ => (),
         }
     }
-    println!("{}", forward * depth)
+    let answer = forward * depth;
+    answer.to_string()
 }
 
-fn get_data() -> Vec<Command> {
-    let path = "./src/days/day_2_input.txt";
-    let file = fs::read_to_string(path).expect("could not open file");
-    file.lines()
+fn parse(data: &String) -> Vec<Command> {
+    data.lines()
         .map(|line| {
             let parts: Vec<&str> = line.split(" ").collect();
             let direction = match parts[0] {

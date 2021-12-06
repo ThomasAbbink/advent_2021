@@ -1,10 +1,9 @@
 use itertools::Itertools;
-use std::fs;
+
+use crate::solve;
 
 pub fn run() {
-    let data = get_data();
-    task_1(&data);
-    task_2(&data);
+    solve!(&1, parse, task_1, task_2)
 }
 
 fn count_increases(measurements: &Vec<i32>) -> usize {
@@ -15,12 +14,12 @@ fn count_increases(measurements: &Vec<i32>) -> usize {
         .count()
 }
 
-fn task_1(input: &ParsedInput) {
+fn task_1(input: &ParsedInput) -> String {
     let count = count_increases(&input.depths);
-    println!("The count for task 1 is {}", count)
+    count.to_string()
 }
 
-fn task_2(input: &ParsedInput) {
+fn task_2(input: &ParsedInput) -> String {
     let sums = input
         .depths
         .iter()
@@ -29,16 +28,14 @@ fn task_2(input: &ParsedInput) {
         .collect();
 
     let count = count_increases(&sums);
-    println!("The count for task 2 is {}", count)
+    count.to_string()
 }
 
 struct ParsedInput {
     depths: Vec<i32>,
 }
 
-fn get_data() -> ParsedInput {
-    let path = "./src/days/day_1_input.txt";
-    let data = fs::read_to_string(path).expect("unable to open file");
+fn parse(data: &String) -> ParsedInput {
     let depths = data
         .lines()
         .map(|line| line.parse::<i32>().unwrap())
