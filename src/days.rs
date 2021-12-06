@@ -1,6 +1,7 @@
 pub mod day_1;
 pub mod day_2;
 pub mod day_3;
+pub mod day_4;
 
 fn get_input(day_number: &i32) -> String {
     use std::fs;

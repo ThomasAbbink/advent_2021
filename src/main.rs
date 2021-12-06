@@ -1,10 +1,10 @@
 mod days;
 use std::env;
 
-use days::{day_1, day_2, day_3};
+use days::{day_1, day_2, day_3, day_4};
 
 fn main() {
-    let puzzles = vec![day_1::run as fn(), day_2::run, day_3::run];
+    let puzzles = vec![day_1::run as fn(), day_2::run, day_3::run, day_4::run];
     let args: Vec<String> = env::args().collect();
 
     match args.len() {
