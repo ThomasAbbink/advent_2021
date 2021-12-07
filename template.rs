@@ -6,14 +6,17 @@ pub fn run() {
     solve!(&day_number, parse, task_1, task_2);
 }
 
-fn parse(input: &String) -> Any {}
-
-fn task_1(data: &Any) -> String {
+fn task_1(data: &ParsedInput) -> String {
     String::from("TODO")
 }
 
-fn task_2(data: &Any) -> String {
+fn task_2(data: &ParsedInput) -> String {
     String::from("TODO")
+}
+
+struct ParsedInput {}
+fn parse(input: &String) -> ParsedInput {
+    ParsedInput {}
 }
 
 #[test]
