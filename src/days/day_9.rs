@@ -88,7 +88,7 @@ fn expand_to_basin(basin: &Vec<(usize, usize)>, height_map: &Vec<Vec<i32>>) -> V
         }
     }
 
-    if new_locations.len() == 0 {
+    if new_locations.is_empty() {
         basin.to_vec()
     } else {
         let mut b = basin.clone();
@@ -114,7 +114,7 @@ fn task_2(data: &ParsedInput) -> String {
 
     let mut answer = 1;
     for i in 0..=2 {
-        answer = answer * basins[i].len();
+        answer *= basins[i].len();
     }
     answer.to_string()
 }

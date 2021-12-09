@@ -109,7 +109,7 @@ fn parse_line(l: &str) -> Line {
         .iter()
         .filter(|s| !s.is_empty())
         .map(|point| {
-            let x_y = point.trim().split(",").collect_vec();
+            let x_y = point.trim().split(',').collect_vec();
             Point {
                 x: x_y[0].parse::<i32>().unwrap(),
                 y: x_y[1].parse::<i32>().unwrap(),

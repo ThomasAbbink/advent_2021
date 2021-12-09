@@ -58,7 +58,7 @@ impl SSDisplay {
     fn translate(&self, string: &String, model: &HashMap<String, String>) -> String {
         string
             .split("")
-            .map(|s| String::from(s))
+            .map(String::from)
             .filter(|s| !s.is_empty())
             .map(|s| {
                 let (k, _v) = model
@@ -216,7 +216,7 @@ fn panels_to_digit(string: &String) -> i32 {
         .split("")
         .filter(|s| !s.is_empty())
         .collect_vec();
-    panels.sort();
+    panels.sort_unstable();
 
     match panels.as_slice() {
         ["a", "b", "c", "e", "f", "g"] => 0,
@@ -249,18 +249,18 @@ struct ParsedInput {
 fn parse(input: &String) -> ParsedInput {
     let lines = input
         .lines()
-        .map(|line| line.split("|").map(|s| String::from(s)).collect_vec())
+        .map(|line| line.split('|').map(String::from).collect_vec())
         .filter(|line| line.len() > 1)
         .map(|line| Line {
             input_values: line[0]
                 .trim()
-                .split(" ")
-                .map(|s| String::from(s))
+                .split(' ')
+                .map(String::from)
                 .collect_vec(),
             output_values: line[1]
                 .trim()
-                .split(" ")
-                .map(|s| String::from(s))
+                .split(' ')
+                .map(String::from)
                 .collect_vec(),
         })
         .collect_vec();

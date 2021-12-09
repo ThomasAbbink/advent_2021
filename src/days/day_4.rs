@@ -89,7 +89,7 @@ fn task_1(data: &BingoInput) -> String {
 
 fn task_2(data: &BingoInput) -> String {
     let mut first_losing_board: Option<&BingoBoard> = None;
-    let mut attempted_numbers = data.drawn_numbers.iter().map(|i| i).collect_vec();
+    let mut attempted_numbers = data.drawn_numbers.iter().collect_vec();
     let mut last_popped: &i32 = &0;
     for _ in data.drawn_numbers.iter().rev().enumerate() {
         let lose = data
@@ -146,7 +146,7 @@ fn parse(input: &String) -> BingoInput {
     let lines = input.lines().collect_vec();
 
     let drawn_numbers = lines[0]
-        .split(",")
+        .split(',')
         .map(|line| line.parse::<i32>().unwrap())
         .collect_vec();
 
@@ -154,15 +154,15 @@ fn parse(input: &String) -> BingoInput {
 
     let boards: Vec<BingoBoard> = lines
         .iter()
-        .filter(|&line| !line.contains(","))
+        .filter(|&line| !line.contains(','))
         .filter(|&line| line != &"\n")
         .join(" ")
-        .split(" ")
+        .split(' ')
         .filter(|&line| !line.is_empty())
         .map(|num| num.parse::<i32>().unwrap())
         .collect_vec()
         .chunks(board_size * board_size)
-        .map(|x| x.iter().cloned().collect())
+        .map(|x| x.to_vec())
         .map(|item| BingoBoard {
             numbers: item,
             size: board_size,

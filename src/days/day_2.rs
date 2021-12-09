@@ -55,7 +55,7 @@ fn task_2(commands: &Vec<Command>) -> String {
 fn parse(data: &String) -> Vec<Command> {
     data.lines()
         .map(|line| {
-            let parts: Vec<&str> = line.split(" ").collect();
+            let parts: Vec<&str> = line.split(' ').collect();
             let direction = match parts[0] {
                 "forward" => Direction::Forward,
                 "down" => Direction::Down,

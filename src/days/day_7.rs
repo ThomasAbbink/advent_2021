@@ -53,7 +53,7 @@ fn task_2(positions: &Vec<f64>) -> String {
 
 fn parse(input: &String) -> Vec<f64> {
     input
-        .split(",")
+        .split(',')
         .map(|s| s.parse::<f64>().unwrap())
         .collect_vec()
 }

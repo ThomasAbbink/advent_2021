@@ -29,9 +29,9 @@ impl Ocean {
             .map(|(key, val)| ((key - 1), *val))
             .collect::<HashMap<i32, i64>>();
 
-        let spawn_count = next_iteration.get(&-1).unwrap().clone();
+        let spawn_count = *next_iteration.get(&-1).unwrap();
         let sixes: i64 = match next_iteration.get(&6) {
-            Some(x) => x.clone(),
+            Some(x) => *x,
             None => 0,
         };
         // take all -1 keys, put new fishes in 8, reset the cycle for all -1s
@@ -86,7 +86,7 @@ struct ParsedInput {
 fn parse(input: &String) -> ParsedInput {
     ParsedInput {
         weird_fishes: input
-            .split(",")
+            .split(',')
             .map(|s| LanternFish {
                 days_until_spawn: s.parse::<i32>().unwrap(),
             })

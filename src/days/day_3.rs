@@ -6,7 +6,7 @@ pub fn run() {
 }
 
 fn task_1(numbers: &Vec<String>) -> String {
-    let byte_array = to_byte_array(&numbers);
+    let byte_array = to_byte_array(numbers);
     let most_common = most_common(&byte_array, false);
     let least_common = invert(&most_common);
     let gamma = bytes_to_num(&most_common);
