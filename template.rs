@@ -13,7 +13,7 @@ fn task_1(_data: &ParsedInput) -> String {
 fn task_2(_data: &ParsedInput) -> String {
     String::from("TODO")
 }
-
+#[derive(Debug)]
 struct ParsedInput {}
 fn parse(input: &String) -> ParsedInput {
     ParsedInput {}
