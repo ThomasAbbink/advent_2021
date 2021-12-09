@@ -17,12 +17,16 @@ fn get_input(day_number: &i32) -> String {
 }
 
 fn print_answer(day_number: &i32, task_number: &i32, result: &str) {
-    let tnc = if let 1 = task_number {
-        task_number.to_string().yellow()
-    } else {
-        task_number.to_string().magenta()
-    };
-    println!("Day {} task {}: {}", day_number, tnc, result.green().bold());
+    let r = *day_number as u8 * (255 / 31) as u8;
+    let g = 255 - *day_number as u8 * (255 / 31);
+    let b = 255 - *day_number as u8 * (255 / 31);
+    println!(
+        "{} {}.{}: {}",
+        "day".truecolor(r, g, b),
+        day_number.to_string().truecolor(r, g, b),
+        task_number.to_string().truecolor(r, g, b),
+        result.green().bold()
+    );
 }
 
 #[macro_export]
