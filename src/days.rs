@@ -1,3 +1,5 @@
+use colored::Colorize;
+
 pub mod day_1;
 pub mod day_2;
 pub mod day_3;
@@ -15,10 +17,12 @@ fn get_input(day_number: &i32) -> String {
 }
 
 fn print_answer(day_number: &i32, task_number: &i32, result: &String) {
-    println!(
-        "The answer to day {} task {} is {}",
-        day_number, task_number, result
-    );
+    let tnc = if let 1 = task_number {
+        task_number.to_string().yellow()
+    } else {
+        task_number.to_string().magenta()
+    };
+    println!("Day {} task {}: {}", day_number, tnc, result.green().bold());
 }
 
 #[macro_export]
