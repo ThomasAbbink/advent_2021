@@ -30,7 +30,7 @@ where
 }
 
 impl BingoBoard {
-    fn is_winning(&self, drawn_numbers: &Vec<&i32>) -> bool {
+    fn is_winning(&self, drawn_numbers: &[&i32]) -> bool {
         self.rows()
             .iter()
             .chain(self.columns().iter())
@@ -49,7 +49,7 @@ impl BingoBoard {
     }
 
     // assuming the last number is the winning number
-    fn calculate_score(&self, drawn_numbers: &Vec<&i32>) -> i32 {
+    fn calculate_score(&self, drawn_numbers: &[&i32]) -> i32 {
         let result = self
             .numbers
             .iter()
@@ -73,12 +73,9 @@ fn task_1(data: &BingoInput) -> String {
             .iter()
             .find(|board| board.is_winning(&attempted_numbers));
 
-        match win {
-            Some(board) => {
-                winning_board = Some(board);
-                break;
-            }
-            None => {}
+        if let Some(board) = win {
+            winning_board = Some(board);
+            break;
         }
     }
     match winning_board {
@@ -142,7 +139,7 @@ fn test() {
     assert_eq!(task_2(&parsed), "1924");
 }
 
-fn parse(input: &String) -> BingoInput {
+fn parse(input: &str) -> BingoInput {
     let lines = input.lines().collect_vec();
 
     let drawn_numbers = lines[0]
