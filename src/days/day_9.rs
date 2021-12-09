@@ -15,14 +15,14 @@ fn task_1(data: &ParsedInput) -> String {
     (sum_locations(&low_points, &data.height_map) + low_points.len() as i32).to_string()
 }
 
-fn sum_locations(locations: &Vec<(usize, usize)>, height_map: &Vec<Vec<i32>>) -> i32 {
+fn sum_locations(locations: &[(usize, usize)], height_map: &[Vec<i32>]) -> i32 {
     locations
         .iter()
         .map(|(i, j)| height_map[*i][*j])
         .sum::<i32>()
 }
 
-fn find_low_points(height_map: &Vec<Vec<i32>>) -> Vec<(usize, usize)> {
+fn find_low_points(height_map: &[Vec<i32>]) -> Vec<(usize, usize)> {
     let mut low_points: Vec<(usize, usize)> = vec![];
 
     for (i, map) in height_map.iter().enumerate() {
@@ -32,20 +32,18 @@ fn find_low_points(height_map: &Vec<Vec<i32>>) -> Vec<(usize, usize)> {
                 .iter()
                 .map(|point| get_value(point, height_map))
                 .collect_vec();
-            match values.iter().min() {
-                Some(x) => {
-                    if val < x {
-                        low_points.push((i, j));
-                    }
+
+            if let Some(x) = values.iter().min() {
+                if val < x {
+                    low_points.push((i, j));
                 }
-                None => {}
             }
         }
     }
     low_points
 }
 
-fn get_adjacent(i: usize, j: usize, height_map: &Vec<Vec<i32>>) -> Vec<(usize, usize)> {
+fn get_adjacent(i: usize, j: usize, height_map: &[Vec<i32>]) -> Vec<(usize, usize)> {
     let w = height_map[0].len() - 1;
     let h = height_map.len() - 1;
     let mut res: Vec<(usize, usize)> = vec![];
@@ -73,11 +71,11 @@ fn get_adjacent(i: usize, j: usize, height_map: &Vec<Vec<i32>>) -> Vec<(usize, u
     res
 }
 
-fn get_value((i, j): &(usize, usize), height_map: &Vec<Vec<i32>>) -> i32 {
+fn get_value((i, j): &(usize, usize), height_map: &[Vec<i32>]) -> i32 {
     height_map[*i][*j]
 }
 
-fn expand_to_basin(basin: &Vec<(usize, usize)>, height_map: &Vec<Vec<i32>>) -> Vec<(usize, usize)> {
+fn expand_to_basin(basin: &[(usize, usize)], height_map: &[Vec<i32>]) -> Vec<(usize, usize)> {
     let mut new_locations = vec![];
     for (i, j) in basin {
         let adjacent = get_adjacent(*i, *j, height_map);
@@ -91,7 +89,7 @@ fn expand_to_basin(basin: &Vec<(usize, usize)>, height_map: &Vec<Vec<i32>>) -> V
     if new_locations.is_empty() {
         basin.to_vec()
     } else {
-        let mut b = basin.clone();
+        let mut b = basin.to_vec();
         b.append(&mut new_locations.into_iter().unique().collect_vec());
         expand_to_basin(&b, height_map)
     }
@@ -101,7 +99,7 @@ fn task_2(data: &ParsedInput) -> String {
     let low_points = find_low_points(&data.height_map);
     let mut basins = low_points
         .iter()
-        .map(|loc| expand_to_basin(&vec![*loc], &data.height_map))
+        .map(|loc| expand_to_basin(&[*loc], &data.height_map))
         .collect_vec();
 
     basins.sort_by(|a, b| {
@@ -112,10 +110,8 @@ fn task_2(data: &ParsedInput) -> String {
         }
     });
 
-    let mut answer = 1;
-    for i in 0..=2 {
-        answer *= basins[i].len();
-    }
+    let answer = basins.iter().take(3).map(|b| b.len()).product::<usize>();
+
     answer.to_string()
 }
 
@@ -123,7 +119,7 @@ fn task_2(data: &ParsedInput) -> String {
 struct ParsedInput {
     height_map: Vec<Vec<i32>>,
 }
-fn parse(input: &String) -> ParsedInput {
+fn parse(input: &str) -> ParsedInput {
     let height_map = input
         .lines()
         .map(|line| {

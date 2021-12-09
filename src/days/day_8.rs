@@ -16,10 +16,7 @@ fn task_1(data: &ParsedInput) -> String {
         .iter()
         .map(|line| line.output_values.clone())
         .flatten()
-        .filter(|val| match val.len() {
-            2 | 3 | 4 | 7 => true,
-            _ => false,
-        })
+        .filter(|val| matches!(val.len(), 2 | 3 | 4 | 7))
         .count();
 
     count.to_string()
@@ -55,7 +52,7 @@ impl SSDisplay {
         digits.iter().join("").parse::<i32>().unwrap()
     }
 
-    fn translate(&self, string: &String, model: &HashMap<String, String>) -> String {
+    fn translate(&self, string: &str, model: &HashMap<String, String>) -> String {
         string
             .split("")
             .map(String::from)
@@ -76,7 +73,7 @@ impl SSDisplay {
             .iter()
             .map(|s| {
                 (
-                    String::from(s.clone()),
+                    String::from(*s),
                     vec!["a", "b", "c", "d", "e", "f", "g"]
                         .iter()
                         .map(|s| String::from(*s))
@@ -210,7 +207,7 @@ impl SSDisplay {
     }
 }
 
-fn panels_to_digit(string: &String) -> i32 {
+fn panels_to_digit(string: &str) -> i32 {
     let mut panels = string
         .trim()
         .split("")
@@ -246,22 +243,14 @@ struct ParsedInput {
     lines: Vec<Line>,
 }
 
-fn parse(input: &String) -> ParsedInput {
+fn parse(input: &str) -> ParsedInput {
     let lines = input
         .lines()
         .map(|line| line.split('|').map(String::from).collect_vec())
         .filter(|line| line.len() > 1)
         .map(|line| Line {
-            input_values: line[0]
-                .trim()
-                .split(' ')
-                .map(String::from)
-                .collect_vec(),
-            output_values: line[1]
-                .trim()
-                .split(' ')
-                .map(String::from)
-                .collect_vec(),
+            input_values: line[0].trim().split(' ').map(String::from).collect_vec(),
+            output_values: line[1].trim().split(' ').map(String::from).collect_vec(),
         })
         .collect_vec();
 

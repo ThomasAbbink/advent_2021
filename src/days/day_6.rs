@@ -41,7 +41,7 @@ impl Ocean {
         self.weird_fishes = next_iteration;
     }
 
-    fn from(wf: &Vec<LanternFish>) -> Ocean {
+    fn from(wf: &[LanternFish]) -> Ocean {
         let mut hm = HashMap::new();
         for i in 0..8 {
             hm.insert(i, 0);
@@ -83,7 +83,7 @@ struct ParsedInput {
     weird_fishes: Vec<LanternFish>,
 }
 
-fn parse(input: &String) -> ParsedInput {
+fn parse(input: &str) -> ParsedInput {
     ParsedInput {
         weird_fishes: input
             .split(',')

@@ -9,7 +9,7 @@ pub fn run() {
     solve!(&day_number, parse, task_1, task_2);
 }
 
-fn task_1(positions: &Vec<f64>) -> String {
+fn task_1(positions: &[f64]) -> String {
     let min = positions.iter().map(|i| *i as i64).min().unwrap();
     let max = positions.iter().map(|i| *i as i64).max().unwrap();
     let mut calcs = vec![];
@@ -20,7 +20,7 @@ fn task_1(positions: &Vec<f64>) -> String {
     calcs.iter().min().unwrap().to_string()
 }
 
-fn calculate_costs(positions: &Vec<f64>, target: i32) -> i64 {
+fn calculate_costs(positions: &[f64], target: i32) -> i64 {
     positions
         .iter()
         .map(|f| f.round() as i64)
@@ -28,7 +28,7 @@ fn calculate_costs(positions: &Vec<f64>, target: i32) -> i64 {
         .sum()
 }
 
-fn calculate_costs_2(positions: &Vec<f64>, target: i32) -> i64 {
+fn calculate_costs_2(positions: &[f64], target: i32) -> i64 {
     positions
         .iter()
         .map(|f| f.round() as i64)
@@ -39,7 +39,7 @@ fn calculate_costs_2(positions: &Vec<f64>, target: i32) -> i64 {
         .sum()
 }
 
-fn task_2(positions: &Vec<f64>) -> String {
+fn task_2(positions: &[f64]) -> String {
     let mean: Mean = positions.iter().collect();
     let min = mean.mean() as i32 - 2;
     let max = mean.mean() as i32 + 2;
@@ -51,7 +51,7 @@ fn task_2(positions: &Vec<f64>) -> String {
     calcs.iter().min().unwrap().to_string()
 }
 
-fn parse(input: &String) -> Vec<f64> {
+fn parse(input: &str) -> Vec<f64> {
     input
         .split(',')
         .map(|s| s.parse::<f64>().unwrap())

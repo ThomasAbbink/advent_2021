@@ -15,7 +15,7 @@ fn task_2(_data: &ParsedInput) -> String {
 }
 #[derive(Debug)]
 struct ParsedInput {}
-fn parse(input: &String) -> ParsedInput {
+fn parse(input: &str) -> ParsedInput {
     ParsedInput {}
 }
 

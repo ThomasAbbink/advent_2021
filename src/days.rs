@@ -16,7 +16,7 @@ fn get_input(day_number: &i32) -> String {
     fs::read_to_string(path).expect("unable to open file")
 }
 
-fn print_answer(day_number: &i32, task_number: &i32, result: &String) {
+fn print_answer(day_number: &i32, task_number: &i32, result: &str) {
     let tnc = if let 1 = task_number {
         task_number.to_string().yellow()
     } else {

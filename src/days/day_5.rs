@@ -1,3 +1,5 @@
+use std::cmp::Ordering;
+
 use itertools::Itertools;
 
 use crate::solve;
@@ -75,20 +77,15 @@ impl Line {
 }
 
 fn move_to_target(location: &Point, target: &Point) -> Point {
-    let next_x = if target.x > location.x {
-        location.x + 1
-    } else if target.x < location.x {
-        location.x - 1
-    } else {
-        location.x
+    let next_x = match target.x.cmp(&location.x) {
+        Ordering::Greater => location.x + 1,
+        Ordering::Less => location.x - 1,
+        Ordering::Equal => location.x,
     };
-
-    let next_y = if target.y > location.y {
-        location.y + 1
-    } else if target.y < location.y {
-        location.y - 1
-    } else {
-        location.y
+    let next_y = match target.y.cmp(&location.y) {
+        Ordering::Greater => location.y + 1,
+        Ordering::Less => location.y - 1,
+        Ordering::Equal => location.y,
     };
 
     Point {
@@ -120,7 +117,7 @@ fn parse_line(l: &str) -> Line {
     Line { ends: s }
 }
 
-fn parse(input: &String) -> ParsedInput {
+fn parse(input: &str) -> ParsedInput {
     let lines = input.lines().map(parse_line).collect_vec();
 
     ParsedInput { lines }
