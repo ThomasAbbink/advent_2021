@@ -7,11 +7,11 @@ pub fn run() {
 }
 
 fn task_1(_data: &ParsedInput) -> String {
-    String::from("TODO")
+    todo!()
 }
 
 fn task_2(_data: &ParsedInput) -> String {
-    String::from("TODO")
+    todo!()
 }
 #[derive(Debug)]
 struct ParsedInput {}

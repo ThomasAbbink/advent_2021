@@ -1,4 +1,5 @@
 use std::cmp::Ordering;
+use std::collections::HashMap;
 
 use itertools::Itertools;
 
@@ -11,44 +12,32 @@ pub fn run() {
 }
 
 fn task_1(data: &ParsedInput) -> String {
-    let locations = data
-        .lines
-        .iter()
-        .filter(|line| line.ends[0].x == line.ends[1].x || line.ends[0].y == line.ends[1].y)
-        .map(|line| line.get_locations())
-        .flatten()
-        .collect_vec();
-    let mut duplicates = vec![];
-    for point in &locations {
-        let count = locations
-            .iter()
-            .filter(|p| p.x == point.x && p.y == point.y)
-            .count();
-        if count >= 2 {
-            duplicates.push(point)
-        }
-    }
-    (duplicates.iter().unique().collect_vec().len()).to_string()
+    let locations = create_locations(data, |line: &Line| {
+        line.ends[0].x == line.ends[1].x || line.ends[0].y == line.ends[1].y
+    });
+    count_locations(&locations).to_string()
 }
 
 fn task_2(data: &ParsedInput) -> String {
-    let locations = data
-        .lines
+    let locations = create_locations(data, |_line: &Line| true);
+    count_locations(&locations).to_string()
+}
+
+fn create_locations(data: &ParsedInput, filter: fn(&Line) -> bool) -> Vec<Point> {
+    data.lines
         .iter()
+        .filter(|line| filter(line))
         .map(|line| line.get_locations())
         .flatten()
-        .collect_vec();
-    let mut duplicates = vec![];
-    for point in &locations {
-        let count = locations
-            .iter()
-            .filter(|p| p.x == point.x && p.y == point.y)
-            .count();
-        if count >= 2 {
-            duplicates.push(point)
-        }
+        .collect_vec()
+}
+
+fn count_locations(locations: &[Point]) -> i32 {
+    let mut counts: HashMap<Point, i32> = Default::default();
+    for point in locations {
+        *counts.entry(*point).or_insert(0) += 1;
     }
-    (duplicates.iter().unique().collect_vec().len()).to_string()
+    counts.iter().filter(|(_, count)| **count > 1).count() as i32
 }
 
 #[derive(Debug)]
@@ -72,6 +61,7 @@ impl Line {
             points.push(next);
             curr = next;
         }
+
         points
     }
 }
