@@ -6,7 +6,7 @@ pub fn run() {
     solve!(&1, parse, task_1, task_2)
 }
 
-fn count_increases(measurements: &Vec<i32>) -> usize {
+fn count_increases(measurements: &[i32]) -> usize {
     measurements
         .iter()
         .tuple_windows()
@@ -25,7 +25,7 @@ fn task_2(input: &ParsedInput) -> String {
         .iter()
         .tuple_windows()
         .map(|(a, b, c)| a + b + c)
-        .collect();
+        .collect_vec();
 
     let count = count_increases(&sums);
     count.to_string()
