@@ -41,8 +41,8 @@ fn calculate_costs_2(positions: &Vec<f64>, target: i32) -> i64 {
 
 fn task_2(positions: &Vec<f64>) -> String {
     let mean: Mean = positions.iter().collect();
-    let min = mean.mean() as i32 - 1;
-    let max = mean.mean() as i32 + 1;
+    let min = mean.mean() as i32 - 2;
+    let max = mean.mean() as i32 + 2;
     let mut calcs = vec![];
     for i in min..max {
         calcs.push(calculate_costs_2(positions, i as i32))
