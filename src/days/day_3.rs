@@ -1,3 +1,5 @@
+use std::cmp::Ordering;
+
 use crate::solve;
 use itertools::Itertools;
 
@@ -5,7 +7,7 @@ pub fn run() {
     solve!(&3, parse, task_1, task_2);
 }
 
-fn task_1(numbers: &Vec<String>) -> String {
+fn task_1(numbers: &[String]) -> String {
     let byte_array = to_byte_array(numbers);
     let most_common = most_common(&byte_array, false);
     let least_common = invert(&most_common);
@@ -14,12 +16,12 @@ fn task_1(numbers: &Vec<String>) -> String {
     (gamma * epsilon).to_string()
 }
 
-fn bytes_to_num(bytes: &Vec<i32>) -> isize {
+fn bytes_to_num(bytes: &[i32]) -> isize {
     let str = bytes.iter().join("");
     isize::from_str_radix(&str, 2).unwrap()
 }
 
-fn to_byte_array(numbers: &Vec<String>) -> Vec<Vec<i32>> {
+fn to_byte_array(numbers: &[String]) -> Vec<Vec<i32>> {
     numbers
         .iter()
         .map(|str| {
@@ -31,7 +33,7 @@ fn to_byte_array(numbers: &Vec<String>) -> Vec<Vec<i32>> {
         .collect_vec()
 }
 
-fn most_common(numbers: &Vec<Vec<i32>>, is_inverted: bool) -> Vec<i32> {
+fn most_common(numbers: &[Vec<i32>], is_inverted: bool) -> Vec<i32> {
     let matcher = numbers
         .iter()
         // count instances of 0 and 1s
@@ -46,15 +48,10 @@ fn most_common(numbers: &Vec<Vec<i32>>, is_inverted: bool) -> Vec<i32> {
                 .collect_vec()
         })
         .iter()
-        // if
-        .map(|num| {
-            if *num == 0 {
-                1
-            } else if *num > 0 {
-                1
-            } else {
-                0
-            }
+        .map(|num| match num.cmp(&0) {
+            Ordering::Equal => 1,
+            Ordering::Greater => 1,
+            Ordering::Less => 0,
         })
         .collect_vec();
 
@@ -65,13 +62,13 @@ fn most_common(numbers: &Vec<Vec<i32>>, is_inverted: bool) -> Vec<i32> {
     }
 }
 
-fn invert(vec: &Vec<i32>) -> Vec<i32> {
+fn invert(vec: &[i32]) -> Vec<i32> {
     vec.iter()
         .map(|num| if num == &0 { 1 } else { 0 })
         .collect::<Vec<i32>>()
 }
 
-fn find_match(numbers: &Vec<Vec<i32>>, is_inverted: bool, iteration: usize) -> isize {
+fn find_match(numbers: &[Vec<i32>], is_inverted: bool, iteration: usize) -> isize {
     let matcher = most_common(numbers, is_inverted);
 
     if numbers.len() == 1 {
@@ -86,7 +83,7 @@ fn find_match(numbers: &Vec<Vec<i32>>, is_inverted: bool, iteration: usize) -> i
     }
 }
 
-fn task_2(numbers: &Vec<String>) -> String {
+fn task_2(numbers: &[String]) -> String {
     let byte_array = to_byte_array(numbers);
 
     let oxygen = find_match(&byte_array, false, 0);
@@ -95,7 +92,7 @@ fn task_2(numbers: &Vec<String>) -> String {
     (oxygen * co2).to_string()
 }
 
-fn parse(data: &String) -> Vec<String> {
+fn parse(data: &str) -> Vec<String> {
     data.lines()
         .map(|line| line.parse::<String>().unwrap())
         .collect()

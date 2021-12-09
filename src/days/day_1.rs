@@ -35,7 +35,7 @@ struct ParsedInput {
     depths: Vec<i32>,
 }
 
-fn parse(data: &String) -> ParsedInput {
+fn parse(data: &str) -> ParsedInput {
     let depths = data
         .lines()
         .map(|line| line.parse::<i32>().unwrap())

@@ -18,7 +18,7 @@ pub fn run() {
     solve!(&2, parse, task_1, task_2);
 }
 
-fn task_1(commands: &Vec<Command>) -> String {
+fn task_1(commands: &[Command]) -> String {
     let (forward, depth) =
         commands.iter().fold((0, 0), |(forward, depth), command| {
             match command.direction {
@@ -32,7 +32,7 @@ fn task_1(commands: &Vec<Command>) -> String {
     answer.to_string()
 }
 
-fn task_2(commands: &Vec<Command>) -> String {
+fn task_2(commands: &[Command]) -> String {
     let mut aim = 0;
     let mut depth = 0;
     let mut forward = 0;
@@ -52,7 +52,7 @@ fn task_2(commands: &Vec<Command>) -> String {
     answer.to_string()
 }
 
-fn parse(data: &String) -> Vec<Command> {
+fn parse(data: &str) -> Vec<Command> {
     data.lines()
         .map(|line| {
             let parts: Vec<&str> = line.split(' ').collect();
