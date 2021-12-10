@@ -1,6 +1,7 @@
 use colored::Colorize;
 
 pub mod day_1;
+pub mod day_10;
 pub mod day_2;
 pub mod day_3;
 pub mod day_4;
@@ -25,7 +26,7 @@ fn print_answer(day_number: &i32, task_number: &i32, result: &str) {
         "day".truecolor(r, g, b),
         day_number.to_string().truecolor(r, g, b),
         task_number.to_string().truecolor(r, g, b),
-        result.green().bold()
+        result.truecolor(0, 204, 0).bold()
     );
 }
 
