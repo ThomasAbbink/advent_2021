@@ -1,7 +1,7 @@
 mod days;
 use std::env;
 
-use days::{day_1, day_10, day_11, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9};
+use days::{day_1, day_10, day_11, day_12, day_2, day_3, day_4, day_5, day_6, day_7, day_8, day_9};
 
 fn main() {
     let puzzles: Vec<fn()> = vec![
@@ -16,6 +16,7 @@ fn main() {
         day_9::run,
         day_10::run,
         day_11::run,
+        day_12::run,
     ];
     let args: Vec<String> = env::args().collect();
 
