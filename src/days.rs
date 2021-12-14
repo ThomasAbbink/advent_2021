@@ -2,6 +2,7 @@ use colored::Colorize;
 
 pub mod day_1;
 pub mod day_10;
+pub mod day_11;
 pub mod day_2;
 pub mod day_3;
 pub mod day_4;
@@ -18,9 +19,9 @@ fn get_input(day_number: &i32) -> String {
 }
 
 fn print_answer(day_number: &i32, task_number: &i32, result: &str) {
-    let r = *day_number as u8 * (255 / 31) as u8;
-    let g = 255 - *day_number as u8 * (255 / 31);
-    let b = 255 - *day_number as u8 * (255 / 31);
+    let r = *day_number as u8 * (255 / 25) as u8;
+    let g = 255 - *day_number as u8 * (255 / 25);
+    let b = 255 - *day_number as u8 * (255 / 25);
     println!(
         "{} {}.{}: {}",
         "day".truecolor(r, g, b),
