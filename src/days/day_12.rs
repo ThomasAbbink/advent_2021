@@ -23,7 +23,7 @@ fn calculate_paths(
 ) -> Vec<Vec<String>> {
     let not_done = paths
         .iter()
-        .filter(|p| *p.last().unwrap() != String::from("end"))
+        .filter(|p| *p.last().unwrap().as_str() != *"end")
         .collect_vec();
 
     if not_done.is_empty() {
