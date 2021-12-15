@@ -18,9 +18,6 @@ fn task_1(data: &ParsedInput) -> String {
 
 fn fold(paper: &[Dot], instructions: &FoldInstructions) -> Vec<Dot> {
     let mut res: Vec<Dot> = vec![];
-    //fist y: take every dot below the line
-    //
-
     for dot in paper {
         match instructions.axis {
             Axis::X => {
@@ -143,6 +140,5 @@ fn parse(input: &str) -> ParsedInput {
 fn test() {
     let test_input = String::from("\n6,10\n0,14\n9,10\n0,3\n10,4\n4,11\n6,0\n6,12\n4,1\n0,13\n10,12\n3,4\n3,0\n8,4\n1,10\n2,14\n8,10\n9,0\n\nfold along y=7\nfold along x=5");
     let parsed = parse(&test_input);
-    assert_eq!(task_1(&parsed), "18");
-    // assert_eq!(task_2(&parsed), "");
+    assert_eq!(task_1(&parsed), "17");
 }
