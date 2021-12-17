@@ -2,7 +2,6 @@ use crate::solve;
 
 pub fn run() {
     let day_number = 0;
-
     solve!(&day_number, parse, task_1, task_2);
 }
 

@@ -20,12 +20,12 @@ fn task_2(data: &ParsedInput) -> String {
 
 #[derive(Debug)]
 struct Params {
-    char_count: HashMap<char, i128>,
-    pair_count: HashMap<String, i128>,
+    char_count: HashMap<char, u128>,
+    pair_count: HashMap<String, u128>,
 }
 
 fn iterate(params: Params, rules: &HashMap<String, String>) -> Params {
-    let mut pair_count: HashMap<String, i128> = params.pair_count.clone();
+    let mut pair_count: HashMap<String, u128> = params.pair_count.clone();
 
     let mut char_count = params.char_count.clone();
     for (original_pair, count) in params.pair_count {
@@ -49,17 +49,15 @@ fn iterate(params: Params, rules: &HashMap<String, String>) -> Params {
 }
 
 fn do_iterations(data: &ParsedInput, iterations: i32) -> String {
-    let mut pair_count: HashMap<String, i128> = HashMap::default();
+    let mut pair_count: HashMap<String, u128> = HashMap::default();
     for (a, b) in data.template.chars().tuple_windows() {
         *pair_count.entry(format!("{}{}", a, b)).or_insert(0) += 1;
     }
 
-    let mut char_count: HashMap<char, i128> = HashMap::default();
+    let mut char_count: HashMap<char, u128> = HashMap::default();
     for c in data.template.chars() {
         *char_count.entry(c).or_insert(0) += 1;
     }
-
-    println!("{:?}", &char_count);
 
     let mut res = Params {
         pair_count,
@@ -73,7 +71,7 @@ fn do_iterations(data: &ParsedInput, iterations: i32) -> String {
     calculate_answer(&res.char_count).to_string()
 }
 
-fn calculate_answer(s: &HashMap<char, i128>) -> i128 {
+fn calculate_answer(s: &HashMap<char, u128>) -> u128 {
     let counted = s.iter().sorted_by(|a, b| b.1.cmp(a.1)).collect_vec();
     let (_char, count) = counted.first().unwrap();
     let (_char_s, count_s) = counted.last().unwrap();
