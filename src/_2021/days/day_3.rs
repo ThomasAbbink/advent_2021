@@ -4,7 +4,7 @@ use crate::solve;
 use itertools::Itertools;
 
 pub fn run() {
-    solve!(&3, parse, task_1, task_2);
+    solve!(&2021, &3, parse, task_1, task_2);
 }
 
 fn task_1(numbers: &[String]) -> String {

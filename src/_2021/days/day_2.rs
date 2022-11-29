@@ -15,7 +15,7 @@ enum Direction {
 }
 
 pub fn run() {
-    solve!(&2, parse, task_1, task_2);
+    solve!(&2021, &2, parse, task_1, task_2);
 }
 
 fn task_1(commands: &[Command]) -> String {

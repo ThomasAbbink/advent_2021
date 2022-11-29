@@ -6,7 +6,7 @@ use crate::solve;
 pub fn run() {
     let day_number = 7;
 
-    solve!(&day_number, parse, task_1, task_2);
+    solve!(&2021, &day_number, parse, task_1, task_2);
 }
 
 fn task_1(positions: &[f64]) -> String {

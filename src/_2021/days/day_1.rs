@@ -3,7 +3,7 @@ use itertools::Itertools;
 use crate::solve;
 
 pub fn run() {
-    solve!(&1, parse, task_1, task_2)
+    solve!(&2021, &1, parse, task_1, task_2)
 }
 
 fn count_increases(measurements: &[i32]) -> usize {

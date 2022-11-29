@@ -5,7 +5,7 @@ use crate::solve;
 pub fn run() {
     let day_number = 4;
 
-    solve!(&day_number, parse, task_1, task_2);
+    solve!(&2021, &day_number, parse, task_1, task_2);
 }
 #[derive(Debug)]
 struct BingoInput {

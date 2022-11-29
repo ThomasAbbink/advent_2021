@@ -1,7 +1,7 @@
 use crate::solve;
 
 pub fn run() {
-    let day_number = 0;
+    let day_number = 1;
     let year = 2022;
     solve!(&year, &day_number, parse, task_1, task_2);
 }

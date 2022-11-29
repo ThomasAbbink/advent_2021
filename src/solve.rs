@@ -1,30 +1,13 @@
 use colored::Colorize;
 
-pub mod day_1;
-pub mod day_10;
-pub mod day_11;
-pub mod day_12;
-pub mod day_13;
-pub mod day_14;
-pub mod day_15;
-pub mod day_16;
-pub mod day_17;
-pub mod day_2;
-pub mod day_3;
-pub mod day_4;
-pub mod day_5;
-pub mod day_6;
-pub mod day_7;
-pub mod day_8;
-pub mod day_9;
-
-fn get_input(day_number: &i32) -> String {
+pub fn get_input(year_number: &i32, day_number: &i32) -> String {
     use std::fs;
-    let path = format!("./src/input/day_{}.txt", day_number);
-    fs::read_to_string(path).expect("unable to open file")
+    let path = format!("./src//_{}/input/day_{}.txt", year_number, day_number);
+    dbg!(&path);
+    fs::read_to_string(path).expect("unable to open the input file")
 }
 
-fn print_answer(day_number: &i32, task_number: &i32, result: &str) {
+pub fn print_answer(day_number: &i32, task_number: &i32, result: &str) {
     let r = *day_number as u8 * (255 / 25) as u8;
     let g = 255 - *day_number as u8 * (255 / 25);
     let b = 255 - *day_number as u8 * (255 / 25);
@@ -39,10 +22,10 @@ fn print_answer(day_number: &i32, task_number: &i32, result: &str) {
 
 #[macro_export]
 macro_rules! solve {
-    ($puzzle_number:expr, $parse:expr, $task_1:expr, $task_2:expr) => {{
-        use crate::days::get_input;
-        use crate::days::print_answer;
-        let input = get_input($puzzle_number);
+    ($year_number:expr, $puzzle_number:expr, $parse:expr, $task_1:expr, $task_2:expr) => {{
+        use crate::solve::get_input;
+        use crate::solve::print_answer;
+        let input = get_input($year_number, $puzzle_number);
         let parsed = $parse(&input);
         let result_1 = $task_1(&parsed);
         print_answer($puzzle_number, &1, &result_1);

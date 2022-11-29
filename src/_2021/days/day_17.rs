@@ -4,7 +4,7 @@ use std::cmp::Ordering;
 
 pub fn run() {
     let day_number = 17;
-    solve!(&day_number, parse, task_1, task_2);
+    solve!(&2021, &day_number, parse, task_1, task_2);
 }
 
 fn task_1(data: &ParsedInput) -> String {
