@@ -6,12 +6,13 @@ pub fn get_input(year_number: &i32, day_number: &i32) -> String {
     fs::read_to_string(path).expect("unable to open the input file")
 }
 
-pub fn print_answer(day_number: &i32, task_number: &i32, result: &str) {
+pub fn print_answer(year: &i32, day_number: &i32, task_number: &i32, result: &str) {
     let r = *day_number as u8 * (255 / 25) as u8;
     let g = 255 - *day_number as u8 * (255 / 25);
     let b = 255 - *day_number as u8 * (255 / 25);
     println!(
-        "{} {}.{}: {}",
+        "{} {} {}.{}: {}",
+        year.to_string().truecolor(r, g, b),
         "day".truecolor(r, g, b),
         day_number.to_string().truecolor(r, g, b),
         task_number.to_string().truecolor(r, g, b),
@@ -27,8 +28,8 @@ macro_rules! solve {
         let input = get_input($year_number, $puzzle_number);
         let parsed = $parse(&input);
         let result_1 = $task_1(&parsed);
-        print_answer($puzzle_number, &1, &result_1);
+        print_answer($year_number, $puzzle_number, &1, &result_1);
         let result_2 = $task_2(&parsed);
-        print_answer($puzzle_number, &2, &result_2);
+        print_answer($year_number, $puzzle_number, &2, &result_2);
     }};
 }
