@@ -3,7 +3,6 @@ use colored::Colorize;
 pub fn get_input(year_number: &i32, day_number: &i32) -> String {
     use std::fs;
     let path = format!("./src//_{}/input/day_{}.txt", year_number, day_number);
-    dbg!(&path);
     fs::read_to_string(path).expect("unable to open the input file")
 }
 
