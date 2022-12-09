@@ -71,5 +71,5 @@ fn test() {
     );
     let parsed = parse(&test_input);
     assert_eq!(task_1(&parsed), "2");
-    // assert_eq!(task_2(&parsed), "");
+    assert_eq!(task_2(&parsed), "4");
 }
